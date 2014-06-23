@@ -7,7 +7,7 @@ A Clojure library designed to generate QRCode wrapped java [QRGen](https://githu
 Dependency in leiningen:
 
 ```clojure
-    [clj.qrgen "0.1.0"]
+    [clj.qrgen "0.1.1"]
 ```
 
 Use it:
@@ -51,6 +51,12 @@ As OutputStream:
 
 ```clojure
 (as-stream (from "hello world"))
+```
+
+As byte array:
+
+```clojure
+(as-bytes (from "hello world"))
 ```
 
 Suppy own file name:

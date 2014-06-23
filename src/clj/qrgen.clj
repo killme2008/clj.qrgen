@@ -5,7 +5,7 @@
            [net.glxn.qrgen.image ImageType]
            [com.google.zxing.qrcode.decoder ErrorCorrectionLevel]
            [com.google.zxing EncodeHintType]
-           [java.io BufferedOutputStream]
+           [java.io BufferedOutputStream ByteArrayOutputStream]
            [java.util EnumSet]
            [net.glxn.qrgen QRCode])
   (:use [clojure.java.io :only [Coercions IOFactory default-streams-impl]]))
@@ -92,6 +92,9 @@
   "Returns a java.io.ByteArrayOutputStream representation of the QR code."
   [^QRCode qc]
   (.stream qc))
+
+(defn as-bytes [^QRCode qc]
+  (.toByteArray ^ByteArrayOutputStream (as-stream qc)))
 
 ;; support clojure.java.io/file and clojure.java.io/output-stream
 (extend-protocol Coercions
