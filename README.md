@@ -4,6 +4,12 @@ A Clojure library designed to generate QRCode wrapped java [QRGen](https://githu
 
 ## Usage
 
+dependency in leiningen:
+
+```
+    [clj.qrgen "0.1.0"]
+```
+
 ```clojure
 (use 'clj.qrgen)
 ```
@@ -62,6 +68,6 @@ Work with `clojure.java.io`:
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 [dennis zhuang](https://github.com/killme2008).
 
 Distributed under the Eclipse Public License version 1.0
