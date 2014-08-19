@@ -1,4 +1,4 @@
-(defproject clj.qrgen "0.1.1"
+(defproject clj.qrgen "0.2.0"
   :description "A Clojure library designed to generate QRCode wrapped javaQRGen."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
