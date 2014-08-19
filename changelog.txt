@@ -1,0 +1,2 @@
+# 0.2.0
+* FIX: couldn't AOT compile due to define-constants
