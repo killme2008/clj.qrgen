@@ -13,7 +13,8 @@
 (defmacro define-constants [enum]
   `(do ~@
      (map (fn [v]
-            `(def ~(symbol (.name v)) ~(str enum "/" (.name v))  ~v)) (EnumSet/allOf (resolve enum)))))
+            `(def ~(symbol (.name v)) ~(str enum "/" (.name v)) ~(symbol (name enum) (.name v))))
+          (EnumSet/allOf (resolve enum)))))
 
 (define-constants ImageType)
 (define-constants ErrorCorrectionLevel)
