@@ -77,6 +77,7 @@ Work with `clojure.java.io`:
 (require '[clojure.java.io :as io])
 (io/file (from "hello world"))
 (io/output-stream (from "hello world"))
+(io/input-stream (from "hello world"))
 (io/copy (io/file (from "hello world")) a-output-stream)
 ```
 
