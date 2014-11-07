@@ -5,7 +5,8 @@
            [net.glxn.qrgen.image ImageType]
            [com.google.zxing.qrcode.decoder ErrorCorrectionLevel]
            [com.google.zxing EncodeHintType]
-           [java.io BufferedOutputStream ByteArrayOutputStream]
+           [java.io BufferedOutputStream BufferedInputStream
+            ByteArrayOutputStream ByteArrayInputStream]
            [java.util EnumSet]
            [net.glxn.qrgen QRCode])
   (:use [clojure.java.io :only [Coercions IOFactory default-streams-impl]]))
@@ -41,7 +42,7 @@
 (defmacro ^:private
   invoke-when [^QRCode qc method v]
   `(when ~v
-    (~method ~qc ~v)))
+     (~method ~qc ~v)))
 
 (defn make-qrcode [^QRCode qc & {:keys [image-type size charset correction hint]}]
   (doto
@@ -90,20 +91,42 @@
      (.file qc name)))
 
 (defn as-stream
-  "Returns a java.io.ByteArrayOutputStream representation of the QR code."
+  "Returns a java.io.ByteArrayOutputStream representation of the QR code.
+   Deprecated."
   [^QRCode qc]
   (.stream qc))
 
 (defn as-bytes [^QRCode qc]
   (.toByteArray ^ByteArrayOutputStream (as-stream qc)))
 
+(def as-output-stream
+  "Returns a OutputStream representation of the QR code."
+  as-stream)
+
+(defn as-input-stream
+  "Returns a InputStream representation of the QR code."
+  [^QRCode qc]
+  (ByteArrayInputStream. (as-bytes qc)))
+
 ;; support clojure.java.io/file and clojure.java.io/output-stream
 (extend-protocol Coercions
   QRCode
   (as-file [qc] (.file qc))
-  (as-url [qc] (.toURL (.toURI (.file qc)))))
+  (as-url [qc] (-> qc
+                   (.file)
+                   (.toURI)
+                   (.toURL))))
 
 (extend QRCode
   IOFactory
   (assoc default-streams-impl
-    :make-output-stream (fn [qc opts] (BufferedOutputStream. (.stream qc)))))
+    :make-output-stream (fn [qc opts]
+                          (-> qc
+                              (.stream)
+                              (ByteArrayOutputStream.)))
+
+    :make-input-stream (fn [qc opts]
+                         (-> qc
+                             (as-bytes)
+                             (ByteArrayInputStream.)
+                             (BufferedInputStream.)))))
