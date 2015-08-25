@@ -1,14 +1,14 @@
 (ns clj.qrgen
   "A Clojure library designed to generate QRCode wrapped java [QRGen](https://github.com/kenglxn/QRGen)."
   {:author "dennis <killme2008@gmail.com>"}
-  (:import [net.glxn.qrgen.vcard VCard]
-           [net.glxn.qrgen.image ImageType]
+  (:import [net.glxn.qrgen.core.vcard VCard]
+           [net.glxn.qrgen.core.image ImageType]
            [com.google.zxing.qrcode.decoder ErrorCorrectionLevel]
            [com.google.zxing EncodeHintType]
            [java.io BufferedOutputStream BufferedInputStream
             ByteArrayOutputStream ByteArrayInputStream]
            [java.util EnumSet]
-           [net.glxn.qrgen QRCode])
+           [net.glxn.qrgen.javase QRCode])
   (:use [clojure.java.io :only [Coercions IOFactory default-streams-impl]]))
 
 (defmacro define-constants [enum]
@@ -77,7 +77,7 @@
       (VCard. name)
     (invoke-when .setCompany company)
     (invoke-when .setTitle title)
-    (invoke-when .setPhonenumber phonenumber)
+    (invoke-when .setPhoneNumber phonenumber)
     (invoke-when .setEmail email)
     (invoke-when .setAddress address)
     (invoke-when .setWebsite website)))

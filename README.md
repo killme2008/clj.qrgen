@@ -2,12 +2,16 @@
 
 A Clojure library designed to generate QRCode wrapped java [QRGen](https://github.com/kenglxn/QRGen).
 
+## News
+
+* Released 0.4.0, upgrade qrgen to 0.2.0
+
 ## Usage
 
 Dependency in leiningen:
 
 ```clojure
-    [clj.qrgen "0.3.0"]
+    [clj.qrgen "0.4.0"]
 ```
 
 Use it:
